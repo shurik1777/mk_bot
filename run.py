@@ -1,19 +1,22 @@
 import asyncio
 import logging
 from aiogram import Dispatcher
+from aiogram.filters import Command
 from config_reader import bot
-from app.handlers_start import router
-from app.handlers_internet import r_int
-from app.handlers_iptv import r_iptv
-from app.handlers_ktv import r_ktv
+from app.handlers_start import start_command
+# from app.handlers_start import router
+# from app.handlers_internet import r_int
+# from app.handlers_iptv import r_iptv
+# from app.handlers_ktv import r_ktv
 
 
 async def main():
     dp = Dispatcher()
-    dp.include_router(router)
-    dp.include_router(r_int)
-    dp.include_router(r_iptv)
-    dp.include_router(r_ktv)
+    dp.message.register(start_command, Command(commands="start"))
+    # dp.include_router(router)
+    # dp.include_router(r_int)
+    # dp.include_router(r_iptv)
+    # dp.include_router(r_ktv)
     await dp.start_polling(bot)
 
 
